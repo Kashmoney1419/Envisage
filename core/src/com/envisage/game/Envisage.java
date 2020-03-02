@@ -12,7 +12,7 @@ public class Envisage extends Game{
     public void create() {
         batch = new SpriteBatch();
         font = new BitmapFont();
-        this.setScreen(new GameScreen(this));
+        this.setScreen(new MainMenuScreen(this));
     }
 
     public void render() {
@@ -20,6 +20,7 @@ public class Envisage extends Game{
     }
 
     public void dispose() {
+        screen.dispose();
         batch.dispose();
         font.dispose();
     }

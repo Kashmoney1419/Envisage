@@ -5,7 +5,6 @@ import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector3;
 
 import java.io.File;
@@ -14,7 +13,6 @@ public class GameScreen implements Screen {
 
     final Envisage game;
     OrthographicCamera camera;
-    SpriteBatch batch;
     Map map;
     Player player1;
     Player player2;
@@ -24,7 +22,6 @@ public class GameScreen implements Screen {
         this.game = game;
         map = new Map("Map", new Texture("map.png"), new File("map_data.txt"));
         camera = new OrthographicCamera();
-        batch = new SpriteBatch();
         player1 = new Player("Player 1", Side.red);
         player1.addUnit(new Unit("unit", player1, new Texture("red_soldier.png"), 100.0f,
                 100, 100, 100, 10, blockToPixel(4), blockToPixel(24)));
@@ -32,17 +29,18 @@ public class GameScreen implements Screen {
         camera.setToOrtho(false, 1857, 1569);
     }
 
-    public void render() {
+    @Override
+    public void render(float delta) {
         Gdx.gl.glClearColor(0, 0, 0, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
         camera.update();
-        batch.setProjectionMatrix(camera.combined);
-        batch.begin();
-        batch.draw(map.image, 0, 0);
+        game.batch.setProjectionMatrix(camera.combined);
+        game.batch.begin();
+        game.batch.draw(map.image, 0, 0);
         for (Unit unit : player1.ownedUnits) {
-            batch.draw(unit.image, unit.posX, unit.posY);
+            game.batch.draw(unit.image, unit.posX, unit.posY);
         }
-        batch.end();
+        game.batch.end();
 
         if (Gdx.input.isTouched()) {
             clickPos.set(Gdx.input.getX(), Gdx.input.getY(), 0);
@@ -54,11 +52,6 @@ public class GameScreen implements Screen {
 
     @Override
     public void show() {
-
-    }
-
-    @Override
-    public void render(float delta) {
 
     }
 
@@ -84,10 +77,8 @@ public class GameScreen implements Screen {
 
     @Override
     public void dispose() {
-        batch.dispose();
         map.dispose();
         player1.dispose();
-        player2.dispose();
     }
 
     public int blockToPixel(int block) {
