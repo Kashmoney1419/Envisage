@@ -7,11 +7,16 @@ public class Player {
     String name;
     Side side;
     ArrayList<Unit> ownedUnits = new ArrayList<>();
+    ArrayList<Unit> killedUnits = new ArrayList<>();
     Unit selectedUnit;
 
     public Player(String name, Side side) {
         this.name = name;
         this.side = side;
+    }
+
+    public void move() {
+
     }
 
     public String getName() {
@@ -39,7 +44,7 @@ public class Player {
     }
 
     public void dispose() {
-        for (Unit unit : ownedUnits) {
+        for (Unit unit : killedUnits) {
             unit.image.dispose();
         }
     }

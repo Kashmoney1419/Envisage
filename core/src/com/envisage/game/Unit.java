@@ -1,6 +1,7 @@
 package com.envisage.game;
 
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.scenes.scene2d.Actor;
 
 public class Unit {
 
@@ -15,6 +16,7 @@ public class Unit {
     int movesLeft;
     float posX;
     float posY;
+    Actor actor;
 
     public Unit(String name, Player owner, Texture image, float health, int strength, int defence, int cost, int movementRange, float posX, float posY) {
         this.name = name;

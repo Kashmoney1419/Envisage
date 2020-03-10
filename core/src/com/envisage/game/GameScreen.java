@@ -4,29 +4,49 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
-import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.maps.MapLayer;
+import com.badlogic.gdx.maps.MapObject;
+import com.badlogic.gdx.maps.MapObjects;
+import com.badlogic.gdx.maps.tiled.TiledMap;
+import com.badlogic.gdx.maps.tiled.TiledMapImageLayer;
+import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
+import com.badlogic.gdx.maps.tiled.TmxMapLoader;
+import com.badlogic.gdx.maps.tiled.objects.TiledMapTileMapObject;
+import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import com.badlogic.gdx.math.Vector3;
-
-import java.io.File;
+import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.utils.viewport.ScreenViewport;
 
 public class GameScreen implements Screen {
 
     final Envisage game;
+    final float unitScale = 1f/32f;
+
+    Stage stage;
+    TiledMap map;
+    TiledMapTileLayer objectLayer;
+    TiledMapImageLayer imageLayer;
     OrthographicCamera camera;
-    Map map;
-    Player player1;
-    Player player2;
+    OrthogonalTiledMapRenderer renderer;
+
     Vector3 clickPos = new Vector3();
 
-    public GameScreen(final Envisage game) {
+    public GameScreen(final Envisage game, String mapName) {
         this.game = game;
-        map = new Map("Map", new Texture("map.png"), new File("map_data.txt"));
+
         camera = new OrthographicCamera();
-        player1 = new Player("Player 1", Side.red);
-        player1.addUnit(new Unit("unit", player1, new Texture("red_soldier.png"), 100.0f,
-                100, 100, 100, 10, blockToPixel(4), blockToPixel(24)));
-        player1.selectedUnit = player1.ownedUnits.get(0);
-        camera.setToOrtho(false, 1857, 1569);
+        camera.setToOrtho(false, 30, 30);
+        camera.update();
+
+        map = new TmxMapLoader().load(mapName);
+        renderer = new OrthogonalTiledMapRenderer(map, unitScale);
+
+        stage = new Stage();
+    }
+
+    @Override
+    public void show() {
+
     }
 
     @Override
@@ -34,25 +54,11 @@ public class GameScreen implements Screen {
         Gdx.gl.glClearColor(0, 0, 0, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
         camera.update();
-        game.batch.setProjectionMatrix(camera.combined);
-        game.batch.begin();
-        game.batch.draw(map.image, 0, 0);
-        for (Unit unit : player1.ownedUnits) {
-            game.batch.draw(unit.image, unit.posX, unit.posY);
-        }
-        game.batch.end();
+        renderer.setView(camera);
+        renderer.render();
 
-        if (Gdx.input.isTouched()) {
-            clickPos.set(Gdx.input.getX(), Gdx.input.getY(), 0);
-            camera.unproject(clickPos);
-            player1.selectedUnit.setPosX(clickPos.x);
-            player1.selectedUnit.setPosY(clickPos.y);
-        }
-    }
-
-    @Override
-    public void show() {
-
+        clickPos = new Vector3(Gdx.input.getX(), Gdx.input.getY(), 0);
+        camera.unproject(clickPos);
     }
 
     @Override
@@ -78,14 +84,13 @@ public class GameScreen implements Screen {
     @Override
     public void dispose() {
         map.dispose();
-        player1.dispose();
     }
 
-    public int blockToPixel(int block) {
+    int blockToPixel(int block) {
         return block * 32;
     }
 
-    public int pixelToBlock(float pixel) {
+    int pixelToBlock(float pixel) {
         return (int) (pixel % 32);
     }
 }

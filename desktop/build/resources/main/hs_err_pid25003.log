@@ -1,0 +1,34 @@
+#
+# A fatal error has been detected by the Java Runtime Environment:
+#
+#  SIGSEGV (0xb) at pc=0x00007fac98757f21, pid=25003, tid=25029
+#
+# JRE version: OpenJDK Runtime Environment (11.0.5+10) (build 11.0.5+10-b520.38)
+# Java VM: OpenJDK 64-Bit Server VM (11.0.5+10-b520.38, mixed mode, tiered, compressed oops, g1 gc, linux-amd64)
+# Problematic frame:
+# C  [libc.so.6+0x94f21]
+[timeout occurred during error reporting in step "printing problematic frame"] after 30 s.
+# Core dump will be written. Default location: Core dumps may be processed with "/lib/systemd/systemd-coredump %P %u %g %s %t 9223372036854775808 %e" (or dumping to /home/akash/Envisage/core/assets/core.25003)
+#
+# If you would like to submit a bug report, please visit:
+#   http://bugreport.java.com/bugreport/crash.jsp
+# The crash happened outside the Java Virtual Machine in native code.
+# See problematic frame for where to report the bug.
+#
+
+---------------  S U M M A R Y ------------
+
+Command Line: -Dfile.encoding=UTF-8 -Duser.country=CA -Duser.language=en -Duser.variant com.envisage.game.desktop.DesktopLauncher
+
+Host: 
+[timeout occurred during error reporting in step "printing summary machine and OS info"] after 30 s.
+Time: Sun Mar  1 18:13:16 2020 PST elapsed time: 94 seconds (0d 0h 1m 34s)
+
+---------------  T H R E A D  ---------------
+
+Current thread (0x00007fac90746000):  JavaThread "LWJGL Application" [_thread_in_native, id=25029, stack(0x00007fac1265d000,0x00007fac1275e000)]
+
+Stack: [0x00007fac1265d000,0x00007fac1275e000],  sp=0x00007fac1275bc00,  free space=1019k
+Native frames: (J=compiled Java code, A=aot compiled Java code, j=interpreted, Vv=VM code, C=native code)
+C  [libc.so.6+0x94f21]
+------ Timeout during error reporting after 120 s. ------

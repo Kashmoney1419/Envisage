@@ -13,7 +13,7 @@ public class MainMenuScreen implements Screen {
     public MainMenuScreen(final Envisage game) {
         this.game = game;
         camera = new OrthographicCamera();
-        camera.setToOrtho(false, 1857, 1569);
+        camera.setToOrtho(false, 1000, 1000);
     }
 
     @Override
@@ -32,7 +32,7 @@ public class MainMenuScreen implements Screen {
         game.batch.end();
 
         if (Gdx.input.isTouched()) {
-            game.setScreen(new GameScreen(game));
+            game.setScreen(new GameScreen(game, "map..tmx"));
             dispose();
         }
     }
