@@ -4,61 +4,80 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
-import com.badlogic.gdx.maps.MapLayer;
-import com.badlogic.gdx.maps.MapObject;
-import com.badlogic.gdx.maps.MapObjects;
+import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.maps.tiled.TiledMap;
-import com.badlogic.gdx.maps.tiled.TiledMapImageLayer;
-import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
-import com.badlogic.gdx.maps.tiled.objects.TiledMapTileMapObject;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import com.badlogic.gdx.math.Vector3;
-import com.badlogic.gdx.scenes.scene2d.Stage;
-import com.badlogic.gdx.utils.viewport.ScreenViewport;
 
 public class GameScreen implements Screen {
 
     final Envisage game;
-    final float unitScale = 1f/32f;
+    final float unitScale = 1f / 32f;
 
-    Stage stage;
+    GameStage gameStage;
     TiledMap map;
-    TiledMapTileLayer objectLayer;
-    TiledMapImageLayer imageLayer;
+    SpriteBatch rendererBatch;
+    Texture minimap;
+    Texture redSoldier;
     OrthographicCamera camera;
     OrthogonalTiledMapRenderer renderer;
+    Vector3 hoverPos;
 
-    Vector3 clickPos = new Vector3();
+    String mapName;
+
 
     public GameScreen(final Envisage game, String mapName) {
         this.game = game;
+        this.mapName = mapName;
+        this.minimap = new Texture("map.png");
+        this.redSoldier = new Texture("red_soldier.png");
+        this.hoverPos = new Vector3();
 
         camera = new OrthographicCamera();
-        camera.setToOrtho(false, 30, 30);
+        camera.setToOrtho(false, 20, 21);
         camera.update();
 
-        map = new TmxMapLoader().load(mapName);
-        renderer = new OrthogonalTiledMapRenderer(map, unitScale);
-
-        stage = new Stage();
+        gameStage = new GameStage(this);
+        Gdx.input.setInputProcessor(gameStage);
     }
 
     @Override
     public void show() {
-
+        map = new TmxMapLoader().load(mapName);
+        renderer = new OrthogonalTiledMapRenderer(map, unitScale);
+        rendererBatch = (SpriteBatch) renderer.getBatch();
     }
 
     @Override
     public void render(float delta) {
         Gdx.gl.glClearColor(0, 0, 0, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
+
+        gameStage.update();
+
+        camera.position.set(gameStage.cameraVector);
         camera.update();
+
         renderer.setView(camera);
         renderer.render();
 
-        clickPos = new Vector3(Gdx.input.getX(), Gdx.input.getY(), 0);
-        camera.unproject(clickPos);
+        gameStage.draw();
+
+        hoverPos = new Vector3(Gdx.input.getX(), Gdx.input.getY(), 0);
+        camera.unproject(hoverPos);
+
+        rendererBatch.begin();
+        rendererBatch.draw(redSoldier, 5, 5, 1, 1); //TODO use 2d array to store unit locations and calculate movements
+        rendererBatch.end();
+
+        game.batch.begin();
+        game.font.draw(game.batch, "Turn: " + gameStage.currentPlayer, 5, 299);
+        game.font.draw(game.batch, "Round: " + gameStage.round, 5, 262);
+        game.font.draw(game.batch, "X: " + (int) hoverPos.x + ", Y: " + (int) hoverPos.y, 5, 225);
+        game.batch.draw(minimap, 1, 1, 192, 192);
+        game.batch.end();
     }
 
     @Override
@@ -78,19 +97,13 @@ public class GameScreen implements Screen {
 
     @Override
     public void hide() {
-
+        dispose();
     }
 
     @Override
     public void dispose() {
         map.dispose();
-    }
-
-    int blockToPixel(int block) {
-        return block * 32;
-    }
-
-    int pixelToBlock(float pixel) {
-        return (int) (pixel % 32);
+        renderer.dispose();
+        gameStage.dispose();
     }
 }

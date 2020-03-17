@@ -28,7 +28,7 @@ public class MainMenuScreen implements Screen {
         camera.update();
         game.batch.setProjectionMatrix(camera.combined);
         game.batch.begin();
-        game.font.draw(game.batch, "suh my dude", 500, 500);
+        game.font.draw(game.batch, "suh my dude", 500, 500); //TODO add button options to main menu
         game.batch.end();
 
         if (Gdx.input.isTouched()) {
@@ -59,6 +59,6 @@ public class MainMenuScreen implements Screen {
 
     @Override
     public void dispose() {
-        
+
     }
 }

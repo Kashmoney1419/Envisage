@@ -1,6 +1,6 @@
 package com.envisage.game;
 
-import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.math.Vector3;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -9,13 +9,18 @@ import java.util.Scanner;
 
 public class MapData {
     Tile[][] tileGrid;
+    Vector3[][] cameraPositionGrid;
+    int[] cameraPosition;
 
-    public MapData(File gridFile) {
+    public MapData(String gridFile) {
         this.tileGrid = setTileGrid(gridFile);
+        setCameraPositionGrid();
+        cameraPosition = new int[]{0, 1};
     }
 
-    public Tile[][] setTileGrid(File gridFile) {
+    public Tile[][] setTileGrid(String file) {
         try {
+            File gridFile = new File(file);
             Scanner sc = new Scanner(new BufferedReader(new FileReader(gridFile)));
             int rows = 49, columns = 58;
             Tile[][] gridData = new Tile[rows][columns];
@@ -59,5 +64,15 @@ public class MapData {
         } catch (Exception e) {
         }
         return null;
+    }
+
+    public void setCameraPositionGrid() {
+        this.cameraPositionGrid = new Vector3[][]{{new Vector3(10, 11, 0), new Vector3(29, 11, 0), new Vector3(47, 11, 0)},
+                {new Vector3(10, 24, 0), new Vector3(29, 24, 0), new Vector3(47, 24, 0)},
+                {new Vector3(10, 38, 0), new Vector3(29, 38, 0), new Vector3(47, 38, 0)}};
+    }
+
+    public Vector3 moveCamera(int[] cameraPosition) {
+        return cameraPositionGrid[cameraPosition[0]][cameraPosition[1]];
     }
 }
