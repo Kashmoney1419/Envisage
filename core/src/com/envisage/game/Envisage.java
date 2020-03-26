@@ -12,7 +12,8 @@ import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 public class Envisage extends Game {
 
     public SpriteBatch batch;
-    public BitmapFont font;
+    public BitmapFont screenFont;
+    public BitmapFont buttonFont;
     public TextureAtlas textureAtlas;
     public Skin skin;
     public TextButton.TextButtonStyle textButtonStyle;
@@ -21,9 +22,13 @@ public class Envisage extends Game {
     public void create() {
         batch = new SpriteBatch();
 
-        font = new BitmapFont(Gdx.files.internal("text_button_skin/default.fnt"));
-        font.getData().setScale(2f);
-        font.getRegion().getTexture().setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
+        screenFont = new BitmapFont(Gdx.files.internal("text_button_skin/default.fnt"));
+        screenFont.getData().setScale(1.33f);
+        screenFont.getRegion().getTexture().setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
+
+        buttonFont = new BitmapFont(Gdx.files.internal("text_button_skin/default.fnt"));
+        buttonFont.getData().setScale(1f);
+        buttonFont.getRegion().getTexture().setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
 
         textureAtlas = new TextureAtlas(Gdx.files.internal("text_button_skin/uiskin.atlas"));
 
@@ -31,7 +36,7 @@ public class Envisage extends Game {
         skin.addRegions(textureAtlas);
 
         textButtonStyle = new TextButton.TextButtonStyle();
-        textButtonStyle.font = font;
+        textButtonStyle.font = buttonFont;
         textButtonStyle.up = skin.getDrawable("default-round");
         textButtonStyle.down = skin.getDrawable("default-round-down");
 
@@ -44,7 +49,8 @@ public class Envisage extends Game {
 
     public void dispose() {
         batch.dispose();
-        font.dispose();
+        screenFont.dispose();
+        buttonFont.dispose();
         textureAtlas.dispose();
         skin.dispose();
         this.getScreen().dispose();
@@ -52,5 +58,9 @@ public class Envisage extends Game {
 
     public void close() {
         Gdx.app.exit();
+    }
+
+    public TextButton.TextButtonStyle getTextButtonStyle() {
+        return this.textButtonStyle;
     }
 }

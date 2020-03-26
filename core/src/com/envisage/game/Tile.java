@@ -4,12 +4,14 @@ public class Tile {
 
     TileType type;
     boolean walkable;
+    float x, y;
     int value;
 
-    public Tile(TileType type, boolean walkable, int value) {
+    public Tile(int x, int y, TileType type, boolean walkable) {
         this.type = type;
         this.walkable = walkable;
-        this.value = value;
+        this.x = (float) x;
+        this.y = (float) y;
     }
 
     public TileType getType() {
@@ -28,11 +30,7 @@ public class Tile {
         this.walkable = walkable;
     }
 
-    public int getValue() {
-        return this.value;
-    }
+    public float getX() { return x; }
 
-    public void setValue(int value) {
-        this.value = value;
-    }
+    public float getY() { return y; }
 }

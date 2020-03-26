@@ -4,16 +4,26 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.badlogic.gdx.graphics.Texture;
 
 public class MainMenuScreen implements Screen {
 
     final Envisage game;
     OrthographicCamera camera;
+    Texture envisageLogo;
+    Texture actsOfWarLogo;
+    Texture clickContinueLogo;
 
     public MainMenuScreen(final Envisage game) {
         this.game = game;
+
         camera = new OrthographicCamera();
-        camera.setToOrtho(false, 1000, 1000);
+        camera.setToOrtho(false, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
+        System.out.println(Gdx.graphics.getWidth());
+
+        envisageLogo = new Texture("envisage_logo.png");
+        actsOfWarLogo = new Texture("acts_of_war_logo.png");
+        clickContinueLogo = new Texture("click_continue_logo.png");
     }
 
     @Override
@@ -26,9 +36,12 @@ public class MainMenuScreen implements Screen {
         Gdx.gl.glClearColor(0, 0, 0, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
         camera.update();
+
         game.batch.setProjectionMatrix(camera.combined);
         game.batch.begin();
-        game.font.draw(game.batch, "suh my dude", 500, 500); //TODO add button options to main menu
+        game.batch.draw(envisageLogo, Gdx.graphics.getWidth() / 2f - envisageLogo.getWidth() / 2f, Gdx.graphics.getHeight() / 2f + envisageLogo.getHeight() / 2f);
+        game.batch.draw(actsOfWarLogo, Gdx.graphics.getWidth() / 2f - actsOfWarLogo.getWidth() / 2f, Gdx.graphics.getHeight() / 2f - envisageLogo.getHeight() / 2f);
+        game.batch.draw(clickContinueLogo, Gdx.graphics.getWidth() / 2f - clickContinueLogo.getWidth() / 2f, 100);
         game.batch.end();
 
         if (Gdx.input.isTouched()) {

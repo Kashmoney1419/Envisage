@@ -9,8 +9,8 @@ public class DesktopLauncher {
 		LwjglApplicationConfiguration config = new LwjglApplicationConfiguration();
 		config.title = "Envisage";
 		config.resizable = false;
-		config.width = 696; //1856 / 2.66 // 58
-		config.height = 588+120; //1568 / 2.66 + 320 / 2.66 // 49
+		config.width = 640; //1856 / 2.66 // 58
+		config.height = 672; //1568 / 2.66 + 320 / 2.66 // 49
 		new LwjglApplication(new Envisage(), config);
 	}
 }
