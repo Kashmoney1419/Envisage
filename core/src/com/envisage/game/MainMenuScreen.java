@@ -19,7 +19,6 @@ public class MainMenuScreen implements Screen {
 
         camera = new OrthographicCamera();
         camera.setToOrtho(false, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
-        System.out.println(Gdx.graphics.getWidth());
 
         envisageLogo = new Texture("envisage_logo.png");
         actsOfWarLogo = new Texture("acts_of_war_logo.png");
@@ -72,6 +71,8 @@ public class MainMenuScreen implements Screen {
 
     @Override
     public void dispose() {
-
+        envisageLogo.dispose();
+        actsOfWarLogo.dispose();
+        clickContinueLogo.dispose();
     }
 }

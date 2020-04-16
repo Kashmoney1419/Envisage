@@ -11,7 +11,6 @@ public class Player {
     Side side;
     int bank;
     ArrayList<Unit> ownedUnits;
-    ArrayList<Unit> killedUnits;
     HashSet<Resource> ownedResources;
     Unit selectedUnit;
     HashSet<Vector2> unitPositions;
@@ -20,9 +19,8 @@ public class Player {
     public Player(String name, Side side) {
         this.name = name;
         this.side = side;
-        bank = 10;
+        bank = 25;
         ownedUnits = new ArrayList<>();
-        killedUnits = new ArrayList<>();
         ownedResources = new HashSet<>();
         unitPositions = new HashSet<>();
         prevCameraPosition = new int[2];
@@ -89,14 +87,18 @@ public class Player {
 
     public void addUnit(Unit unit) {
         ownedUnits.add(unit);
-        bank -= 10;
+        bank -= unit.getCost();
     }
 
     public void removeUnit(Unit unit) {
         ownedUnits.remove(unit);
     }
 
-    public void addResource(Resource resource) { ownedResources.add(resource); }
+    public void addResource(Resource resource) {
+        ownedResources.add(resource);
+    }
 
-    public void removeResource(Resource resource) { ownedResources.remove(resource); }
+    public void removeResource(Resource resource) {
+        ownedResources.remove(resource);
+    }
 }

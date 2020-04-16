@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/Envisage.desktop.main"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/Gradle: com.badlogicgames.gdx:gdx-tools:1.9.10"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/Gradle: com.badlogicgames.gdx:gdx-backend-lwjgl:1.9.10"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/Gradle: com.badlogicgames.gdx:gdx-platform:natives-desktop:1.9.10"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/Gradle: com.badlogicgames.gdx:gdx-box2d-platform:natives-desktop:1.9.10"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/Gradle: com.badlogicgames.gdx:gdx-freetype-platform:natives-desktop:1.9.10"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/Gradle: com.badlogicgames.gdx:gdx-controllers-desktop:1.9.10"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/Gradle: com.badlogicgames.gdx:gdx-controllers-platform:natives-desktop:1.9.10"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/Gradle: com.badlogicgames.gdx:gdx-bullet-platform:natives-desktop:1.9.10"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/Envisage.core.main"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/Gradle: com.badlogicgames.gdx:gdx-backend-headless:1.9.10"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/Gradle: com.badlogicgames.gdx:gdx-freetype:1.9.10"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/Gradle: com.badlogicgames.gdx:gdx:1.9.10"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/Gradle: org.lwjgl.lwjgl:lwjgl_util:2.9.3"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/Gradle: org.lwjgl.lwjgl:lwjgl:2.9.3"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/Gradle: com.badlogicgames.jlayer:jlayer:1.0.1-gdx"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/Gradle: org.jcraft:jorbis:0.0.17"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/Gradle: com.badlogicgames.gdx:gdx-controllers:1.9.10"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/Gradle: com.badlogicgames.box2dlights:box2dlights:1.5"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/Gradle: com.badlogicgames.gdx:gdx-box2d:1.9.10"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/Gradle: com.badlogicgames.ashley:ashley:1.7.3"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/Gradle: com.badlogicgames.gdx:gdx-ai:1.8.2"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/Gradle: com.badlogicgames.gdx:gdx-bullet:1.9.10"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/Gradle: org.lwjgl.lwjgl:lwjgl-platform:natives-linux:2.9.3"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/Gradle: org.lwjgl.lwjgl:lwjgl-platform:natives-osx:2.9.3"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/Gradle: org.lwjgl.lwjgl:lwjgl-platform:natives-windows:2.9.3"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/Gradle: net.java.jinput:jinput:2.0.5"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/Gradle: net.java.jutils:jutils:1.0.0"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/Gradle: net.java.jinput:jinput-platform:natives-linux:2.0.5"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/Gradle: net.java.jinput:jinput-platform:natives-osx:2.0.5"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/Gradle: net.java.jinput:jinput-platform:natives-windows:2.0.5"/>
+	<classpathentry kind="output" path="bin"/>
+</classpath>

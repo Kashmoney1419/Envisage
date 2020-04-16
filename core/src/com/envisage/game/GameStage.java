@@ -37,7 +37,7 @@ public class GameStage extends Stage {
             }
         });
 
-        spawnKnightButton = new TextButton("Knight (10)", this.game.getTextButtonStyle());
+        spawnKnightButton = new TextButton("Knight (25)", this.game.getTextButtonStyle());
         spawnKnightButton.setTransform(true);
         spawnKnightButton.setSize(100, 30);
         spawnKnightButton.setPosition(Gdx.graphics.getWidth() - spawnKnightButton.getWidth() - 1, endTurnButton.getHeight() + 2);

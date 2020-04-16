@@ -4,7 +4,7 @@ import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.InputListener;
 
 
-public class Knight extends Unit {
+public abstract class Knight extends Unit {
 
     public Knight(final MapStage mapStage, final Player owner) {
         super(mapStage, owner);

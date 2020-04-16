@@ -11,6 +11,7 @@ import java.util.Scanner;
 import static com.envisage.game.TileType.*;
 
 public class MapData {
+
     Tile[][] tileGrid;
     Vector3[][] cameraPositionGrid;
     int[] cameraPosition;
@@ -71,7 +72,8 @@ public class MapData {
                 }
                 this.tileGrid = gridData;
             }
-        } catch (Exception ignored) {System.out.println("not mapped");}
+        } catch (Exception ignored) {
+        }
     }
 
     public void setCameraPositionGrid() {

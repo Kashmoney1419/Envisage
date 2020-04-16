@@ -9,7 +9,8 @@ import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.utils.Queue;
 import com.badlogic.gdx.utils.viewport.Viewport;
 
-import static com.envisage.game.Side.*;
+import static com.envisage.game.Side.blue;
+import static com.envisage.game.Side.red;
 
 public class MapStage extends Stage {
 
@@ -24,6 +25,7 @@ public class MapStage extends Stage {
     Queue<Player> turnQueue = new Queue<>();
 
     Player currentPlayer;
+    Player opponent;
     Player player1;
     Player player2;
 
@@ -41,8 +43,7 @@ public class MapStage extends Stage {
         turnQueue.addLast(player1);
         player1.setSelectedUnit(new Unit(this, player1));
         spawnKnight(player1);
-
-
+        
         player2 = new Player("Player 2", blue);
         turnQueue.addLast(player2);
         player2.setSelectedUnit(new Unit(this, player2));
@@ -50,6 +51,7 @@ public class MapStage extends Stage {
         player2.setPrevCameraPosition(new int[]{1, 2});
 
         currentPlayer = player1;
+        opponent = player2;
     }
 
     public void update() {
@@ -58,11 +60,11 @@ public class MapStage extends Stage {
     }
 
     public void spawnKnight(Player player) {
-        if(player == player1 && player.getBank() >= 10) {
+        if (player == player1 && player.getBank() >= 10) {
             RedKnight redKnight = new RedKnight(this, player1);
             player1.addUnit(redKnight);
             this.addActor(redKnight);
-        } else if (player.getBank() >= 10){
+        } else if (player.getBank() >= 10) {
             BlueKnight blueKnight = new BlueKnight(this, player2);
             player2.addUnit(blueKnight);
             this.addActor(blueKnight);
@@ -103,6 +105,7 @@ public class MapStage extends Stage {
             player1.resetUnitMovement();
             player1.updateUnitPositions();
             currentPlayer = player2;
+            opponent = player1;
             turnQueue.addLast(player1);
             player1.setPrevCameraPosition(cameraPosition);
             cameraPosition = player2.getPrevCameraPosition();
@@ -111,6 +114,7 @@ public class MapStage extends Stage {
             player2.resetUnitMovement();
             player2.updateUnitPositions();
             currentPlayer = player1;
+            opponent = player2;
             turnQueue.addLast(player2);
             player2.setPrevCameraPosition(cameraPosition);
             cameraPosition = player1.getPrevCameraPosition();
@@ -133,23 +137,71 @@ public class MapStage extends Stage {
         }
 
         Unit currentUnit = currentPlayer.getSelectedUnit();
+        Vector2 pos = new Vector2(currentUnit.getX(), currentUnit.getY());
 
         if (currentUnit.getType() != Unit.UnitType.none) {
-            if (Gdx.input.isKeyJustPressed(Input.Keys.W) && mapData.getTileFromGrid((int) currentUnit.getSprite().getX(), (int) currentUnit.getSprite().getY() + 1).getWalkable()) {
-                currentUnit.moveUp();
+            if (Gdx.input.isKeyJustPressed(Input.Keys.W)) {
+                for (Unit unit : opponent.ownedUnits) {
+                    if (pos.equals(new Vector2(unit.getX(), unit.getY() - 1)) && currentUnit.getMovesLeft() != 0) {
+                        attack(currentUnit, unit);
+                        break;
+                    }
+                }
+                if (mapData.getTileFromGrid((int) pos.x, (int) pos.y + 1).getWalkable()) {
+                    currentUnit.moveUp();
+                }
             }
-            if (Gdx.input.isKeyJustPressed(Input.Keys.A) && mapData.getTileFromGrid((int) currentUnit.getSprite().getX() - 1, (int) currentUnit.getSprite().getY()).getWalkable()) {
-                currentUnit.moveLeft();
+            if (Gdx.input.isKeyJustPressed(Input.Keys.A)) {
+                for (Unit unit : opponent.ownedUnits) {
+                    if (pos.equals(new Vector2(unit.getX() + 1, unit.getY())) && currentUnit.getMovesLeft() != 0) {
+                        attack(currentUnit, unit);
+                        break;
+                    }
+                }
+                if (mapData.getTileFromGrid((int) pos.x - 1, (int) pos.y).getWalkable()) {
+                    currentUnit.moveLeft();
+                }
             }
-            if (Gdx.input.isKeyJustPressed(Input.Keys.S) && mapData.getTileFromGrid((int) currentUnit.getSprite().getX(), (int) currentUnit.getSprite().getY() - 1).getWalkable()) {
-                currentUnit.moveDown();
+            if (Gdx.input.isKeyJustPressed(Input.Keys.S)) {
+                for (Unit unit : opponent.ownedUnits) {
+                    if (pos.equals(new Vector2(unit.getX(), unit.getY() + 1)) && currentUnit.getMovesLeft() != 0) {
+                        attack(currentUnit, unit);
+                        break;
+                    }
+                }
+                if (mapData.getTileFromGrid((int) pos.x, (int) pos.y - 1).getWalkable()) {
+                    currentUnit.moveDown();
+                }
             }
-            if (Gdx.input.isKeyJustPressed(Input.Keys.D) && mapData.getTileFromGrid((int) currentUnit.getSprite().getX() + 1, (int) currentUnit.getSprite().getY()).getWalkable()) {
-                currentUnit.moveRight();
+            if (Gdx.input.isKeyJustPressed(Input.Keys.D)) {
+                for (Unit unit : opponent.ownedUnits) {
+                    if (pos.equals(new Vector2(unit.getX() - 1, unit.getY())) && currentUnit.getMovesLeft() != 0) {
+                        attack(currentUnit, unit);
+                        break;
+                    }
+                }
+                if (mapData.getTileFromGrid((int) pos.x + 1, (int) pos.y).getWalkable()) {
+                    currentUnit.moveRight();
+                }
             }
         }
+
         if (Gdx.input.isKeyJustPressed(Input.Keys.ESCAPE)) {
             game.close();
+        }
+    }
+
+    public void attack(Unit one, Unit two) {
+        two.loseHealth(50);
+        one.loseHealth(25);
+        one.setMovesLeft(0);
+        if (one.getHealth() <= 0) {
+            one.remove();
+            one.getOwner().removeUnit(one);
+        }
+        if (two.getHealth() <= 0) {
+            two.remove();
+            two.getOwner().removeUnit(two);
         }
     }
 

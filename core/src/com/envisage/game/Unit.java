@@ -9,6 +9,8 @@ import com.badlogic.gdx.scenes.scene2d.Actor;
 
 public class Unit extends Actor {
 
+    final float unitScale = 1f / 32f;
+
     Player owner;
     UnitType type;
     Sprite sprite;
@@ -22,8 +24,6 @@ public class Unit extends Actor {
     int cost;
     int movementRange;
     int movesLeft;
-
-    float unitScale;
 
     public Unit(MapStage mapStage, Player owner) {
         super();
@@ -44,9 +44,9 @@ public class Unit extends Actor {
         shapeRenderer.setProjectionMatrix(mapstage.getViewport().getCamera().combined);
         shapeRenderer.begin(ShapeRenderer.ShapeType.Filled);
         shapeRenderer.setColor(Color.RED);
-        shapeRenderer.rect(this.getX(), this.getY() + 1, 1, 1/5f);
+        shapeRenderer.rect(this.getX(), this.getY() + 1, 1, 1 / 5f);
         shapeRenderer.setColor(Color.GREEN);
-        shapeRenderer.rect(this.getX(), this.getY() + 1, currentHealth/totalHealth, 1/5f);
+        shapeRenderer.rect(this.getX(), this.getY() + 1, currentHealth / totalHealth, 1 / 5f);
         shapeRenderer.end();
         batch.begin();
         sprite.draw(batch);
@@ -99,8 +99,8 @@ public class Unit extends Actor {
         return this.currentHealth;
     }
 
-    public void setHealth(float health) {
-        this.currentHealth = health;
+    public void loseHealth(float health) {
+        this.currentHealth -= health;
     }
 
     public int getStrength() {

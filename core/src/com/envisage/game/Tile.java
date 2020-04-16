@@ -30,7 +30,11 @@ public class Tile {
         this.walkable = walkable;
     }
 
-    public float getX() { return x; }
+    public float getX() {
+        return x;
+    }
 
-    public float getY() { return y; }
+    public float getY() {
+        return y;
+    }
 }

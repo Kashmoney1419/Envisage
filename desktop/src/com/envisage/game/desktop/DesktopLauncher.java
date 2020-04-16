@@ -1,5 +1,6 @@
 package com.envisage.game.desktop;
 
+import com.badlogic.gdx.Files;
 import com.badlogic.gdx.backends.lwjgl.LwjglApplication;
 import com.badlogic.gdx.backends.lwjgl.LwjglApplicationConfiguration;
 import com.envisage.game.Envisage;
@@ -9,8 +10,8 @@ public class DesktopLauncher {
 		LwjglApplicationConfiguration config = new LwjglApplicationConfiguration();
 		config.title = "Envisage";
 		config.resizable = false;
-		config.width = 640; //1856 / 2.66 // 58
-		config.height = 672; //1568 / 2.66 + 320 / 2.66 // 49
+		config.width = 640;
+		config.height = 672;
 		new LwjglApplication(new Envisage(), config);
 	}
 }

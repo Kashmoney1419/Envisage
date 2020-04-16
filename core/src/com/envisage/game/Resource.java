@@ -16,14 +16,14 @@ public class Resource extends Tile {
     }
 
     public void setControlTiles() {
-        controlTiles.add(new Vector2(x+1, y+1));
-        controlTiles.add(new Vector2(x+1, y));
-        controlTiles.add(new Vector2(x+1, y-1));
-        controlTiles.add(new Vector2(x, y+1));
-        controlTiles.add(new Vector2(x, y-1));
-        controlTiles.add(new Vector2(x-1, y+1));
-        controlTiles.add(new Vector2(x-1, y));
-        controlTiles.add(new Vector2(x-1, y-1));
+        controlTiles.add(new Vector2(x + 1, y + 1));
+        controlTiles.add(new Vector2(x + 1, y));
+        controlTiles.add(new Vector2(x + 1, y - 1));
+        controlTiles.add(new Vector2(x, y + 1));
+        controlTiles.add(new Vector2(x, y - 1));
+        controlTiles.add(new Vector2(x - 1, y + 1));
+        controlTiles.add(new Vector2(x - 1, y));
+        controlTiles.add(new Vector2(x - 1, y - 1));
     }
 
     public HashSet<Vector2> getControlTiles() {

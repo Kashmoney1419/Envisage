@@ -75,7 +75,7 @@ public class GameScreen implements Screen {
 
         game.batch.begin();
         game.screenFont.draw(game.batch, "Turn: " + mapStage.currentPlayer.getName(), 1, 200);
-        game.screenFont.draw(game.batch, "Bank: " + mapStage.currentPlayer.getBank(),1, 175);
+        game.screenFont.draw(game.batch, "Bank: " + mapStage.currentPlayer.getBank(), 1, 175);
         game.screenFont.draw(game.batch, "X: " + (int) hoverPos.x + ", Y: " + (int) hoverPos.y, 1, 150);
         game.batch.draw(minimap, 1, 1, 128, 128);
         game.batch.end();
